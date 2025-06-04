@@ -42,7 +42,6 @@ jstring = json.dumps({
     "data": jdata, 
     "xl": "time", 
     "yl": "amplitude", 
-    "title": "Exp decay", 
     "logy": 2,
     "path": "exp-decay.pdf",
 }, indent=4)

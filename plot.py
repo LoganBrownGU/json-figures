@@ -20,11 +20,11 @@ for d in jobject["data"]:
     ax.plot(d["x"], d["y"], "--" if dashed else "-", color=colour, label=label)
 
 # Mandatory
-plt.title(jobject["title"])
 plt.xlabel(jobject["xl"])
 plt.ylabel(jobject["yl"])
 
 # Optional
+if "title" in jobject: plt.title(jobject["title"])
 if "logx" in jobject: ax.set_xscale('log', base=jobject["logx"]) 
 if "logy" in jobject: ax.set_yscale('log', base=jobject["logy"]) 
 
