@@ -10,7 +10,7 @@ with open(sys.argv[1]) as f:
     for line in f.readlines(): contents += line
 jobject = json.loads(contents)
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(4,3))
 
 for d in jobject["data"]: 
     dashed = "dashed" in d and d["dashed"]
@@ -31,5 +31,5 @@ if "logy" in jobject: ax.set_yscale('log', base=jobject["logy"])
 plt.legend(loc="upper right") 
 plt.grid(which="both")
 
-if "path" in jobject: plt.savefig(jobject["path"])
+if "path" in jobject: plt.savefig(jobject["path"], bbox_inches="tight", pad_inches=0)
 else                : plt.show()
