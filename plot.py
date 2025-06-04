@@ -25,10 +25,11 @@ plt.xlabel(jobject["xl"])
 plt.ylabel(jobject["yl"])
 
 # Optional
+if "logx" in jobject: ax.set_xscale('log', base=jobject["logx"]) 
 if "logy" in jobject: ax.set_yscale('log', base=jobject["logy"]) 
-if "logx" in jobject and jobject["logx"]: ax.set_xscale('log', base=10) 
-
 
 plt.legend(loc="upper right") 
 plt.grid(which="both")
-plt.show()
+
+if "path" in jobject: plt.savefig(jobject["path"])
+else                : plt.show()

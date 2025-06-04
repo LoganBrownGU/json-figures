@@ -38,6 +38,13 @@ jdata.append({
     "label": "line 3"
 })
 
-jstring = json.dumps({ "data": jdata, "xl": "time", "yl": "amplitude", "title": "Exp decay", "logy": 2 }, indent=4)
+jstring = json.dumps({ 
+    "data": jdata, 
+    "xl": "time", 
+    "yl": "amplitude", 
+    "title": "Exp decay", 
+    "logy": 2,
+    "path": "exp-decay.pdf",
+}, indent=4)
 
 print(jstring)

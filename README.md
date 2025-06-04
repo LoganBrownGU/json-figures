@@ -11,6 +11,7 @@
 
 - `logx`: base for x-axis log scale (`float`, will only use log scale if set)
 - `logy`: base for y-axis log scale (`float`, will only use log scale if set)
+- `path`: path to save figure (`string`, will just show figure normally if not set) 
 
 ## Mandatory fields (data) 
 
