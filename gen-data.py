@@ -7,10 +7,16 @@ import random
 import json
 
 def f(x):
-    return np.exp(- (x))
+    return np.exp(-x)
 
-t = np.linspace(0, 5, 1000)
-xs = [[f(x) + random.uniform(-n, n) for x in t] for n in [.1, .05, .02]]
+def g(x):
+    return 1 - np.exp(-x)
+
+def h(x):
+    return np.sin(x)
+
+t = np.linspace(0, 5, 10)
+xs = [f(t), g(t), h(t)]
       
 for x in xs:
     plt.plot(t, x)
@@ -21,15 +27,15 @@ jdata.append({
     "x": list(t),
     "y": list(xs[0]),
     "dashed": True,
-    "colour": "tab:orange",
-    "label": "0.1"
+    "colour": "tab:red",
+    "label": "exp"
 })
 
 jdata.append({
     "x": list(t),
     "y": list(xs[1]),
     "colour": "tab:blue",
-    "label": "0.05",
+    "label": "exp",
 })
 
 jdata.append({
@@ -37,7 +43,7 @@ jdata.append({
     "y": list(xs[2]),
     "dashed": False,
     "colour": "tab:green",
-    "label": "0.01"
+    "label": "sin"
 })
 
 jstring = json.dumps({ 
