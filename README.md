@@ -23,3 +23,4 @@
 - `colour`: colour of line (`string`, any recognised by matplotlib) 
 - `label`: label for legend (`string`) 
 - `dashed`: whether line should be dashed (`bool`)
+- `inline`: whether labels should be attached to lines (`bool`)

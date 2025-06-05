@@ -5,12 +5,14 @@ import matplotlib.pyplot as plt
 import sys
 import json
 
+from labellines import labelLine, labelLines
+
 contents = ""
 with open(sys.argv[1]) as f:
     for line in f.readlines(): contents += line
 jobject = json.loads(contents)
 
-fig, ax = plt.subplots(figsize=(4,3))
+fig, ax = plt.subplots(figsize=(5,3))
 
 for d in jobject["data"]: 
     dashed = "dashed" in d and d["dashed"]
@@ -27,8 +29,9 @@ plt.ylabel(jobject["yl"])
 if "title" in jobject: plt.title(jobject["title"])
 if "logx" in jobject: ax.set_xscale('log', base=jobject["logx"]) 
 if "logy" in jobject: ax.set_yscale('log', base=jobject["logy"]) 
+if "inline" in jobject and jobject["inline"]: labelLines(ax.get_lines(), False)
+else                                        : plt.legend(loc="upper right")
 
-plt.legend(loc="upper right") 
 plt.grid(which="both")
 
 if "path" in jobject: plt.savefig(jobject["path"], bbox_inches="tight", pad_inches=0)
