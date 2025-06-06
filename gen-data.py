@@ -52,6 +52,7 @@ jstring = json.dumps({
     "yl": "amplitude", 
     "path": "exp-decay.pdf",
     "inline": True,
+    "ylim": [0, 1.5],
 }, indent=4)
 
 print(jstring)

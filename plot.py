@@ -29,6 +29,8 @@ plt.ylabel(jobject["yl"])
 if "title" in jobject: plt.title(jobject["title"])
 if "logx" in jobject: ax.set_xscale('log', base=jobject["logx"]) 
 if "logy" in jobject: ax.set_yscale('log', base=jobject["logy"]) 
+if "xlim" in jobject: ax.set_xlim(jobject["xlim"])
+if "ylim" in jobject: ax.set_ylim(jobject["ylim"])
 if "inline" in jobject and jobject["inline"]: labelLines(ax.get_lines(), False)
 else                                        : plt.legend(loc="upper right")
 

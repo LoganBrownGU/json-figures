@@ -16,6 +16,8 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 - `logy`: base for y-axis log scale (`float`, will only use log scale if set)
 - `path`: path to save figure (`string`, will just show figure normally if not set) 
 - `title`: title of the plot (`str`)
+- `xlim`: range over which x-axis should be displayed (`[float]`, length 2)
+- `ylim`: range over which y-axis should be displayed (`[float]`, length 2)
 
 ## Mandatory fields (data) 
 
