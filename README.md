@@ -1,5 +1,9 @@
 # JSON plotter
 
+A python script (`plot.py`) that parses JSON files containing numerical and formatting data, outputting a consistent figure format. 
+
+Any number of "lines" may be included, of differing lengths and x-axis data. 
+
 ## Mandatory fields (top level) 
 
 - `data`: data to be plotted (object, see below)
