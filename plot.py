@@ -22,7 +22,7 @@ for d in jobject["data"]:
     
     if label: do_legend = True
 
-    ax.plot(d["x"], d["y"], linestyle, color=colour, label=label)
+    ax.plot(d["x"], d["y"], linestyle, color=colour, label=label, markersize=2)
 
 # Mandatory
 plt.xlabel(jobject["xl"])
@@ -35,7 +35,7 @@ if "logy" in jobject: ax.set_yscale('log', base=jobject["logy"])
 if "xlim" in jobject: ax.set_xlim(jobject["xlim"])
 if "ylim" in jobject: ax.set_ylim(jobject["ylim"])
 if "inline" in jobject and jobject["inline"]: labelLines(ax.get_lines(), False)
-elif do_legend                              : plt.legend(loc="upper right")
+elif do_legend                              : plt.legend()
 
 plt.grid(which="both")
 
