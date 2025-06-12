@@ -7,8 +7,8 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 ## Mandatory fields (top level) 
 
 - `data`: data to be plotted (object, see below)
-- `xl`: x-axis label (`str`) 
-- `yl`: y-axis label (`str`)
+- `xl`: x-axis label (`string`) 
+- `yl`: y-axis label (`string`)
 
 ## Optional fields (top level) 
 
@@ -28,7 +28,7 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 
 - `colour`: colour of line (`string`, any recognised by matplotlib) 
 - `label`: label for legend (`string`) 
-- `dashed`: whether line should be dashed (`bool`)
+- `linestyle`: matplotlib line style (`string`)
 - `inline`: whether labels should be attached to lines (`bool`)
 
 ## Example JSON file 
@@ -60,7 +60,7 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
                 0.01174362845702136,
                 0.006737946999085467
             ],
-            "dashed": true,
+            "linestyle": "--",
             "colour": "tab:red",
             "label": "exp"
         },
@@ -117,7 +117,7 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
                 -0.9643171169287782,
                 -0.9589242746631385
             ],
-            "dashed": false,
+            "linestyle": "-",
             "colour": "tab:green",
             "label": "sin"
         }

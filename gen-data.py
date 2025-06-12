@@ -26,7 +26,7 @@ jdata = []
 jdata.append({
     "x": list(t),
     "y": list(xs[0]),
-    "dashed": True,
+    "linestyle": "--",
     "colour": "tab:red",
     "label": "exp"
 })
@@ -41,7 +41,7 @@ jdata.append({
 jdata.append({
     "x": list(t),
     "y": list(xs[2]),
-    "dashed": False,
+    "linestyle": "x",
     "colour": "tab:green",
     "label": "sin"
 })
