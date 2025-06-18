@@ -7,6 +7,9 @@ import json
 
 from labellines import labelLine, labelLines
 
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs) 
+
 def do_plot(jobject):
     
     fig, ax = plt.subplots(figsize=(5,3))
@@ -19,8 +22,10 @@ def do_plot(jobject):
         
         if label: do_legend = True
 
+        eprint(f"Plotting {label}...")
         ax.plot(d["x"], d["y"], linestyle, color=colour, label=label, markersize=2)
 
+    eprint("Setting options...")
     # Mandatory
     plt.xlabel(jobject["xl"])
     plt.ylabel(jobject["yl"])
@@ -36,19 +41,21 @@ def do_plot(jobject):
 
     plt.grid(which="both")
 
+    eprint("Saving...")
     if "path" in jobject: plt.savefig(jobject["path"], bbox_inches="tight", pad_inches=0)
     else                : plt.show()
 
 for path in sys.argv[1:]: 
     contents = ""
     
+    eprint(f"Opening {path}...")
     try:
         with open(path) as f:
-            for line in f.readlines(): contents += line
-    except: print(f"Could not open `{path}', skipping.", file=sys.stderr); continue
+            contents = "".join(f.readlines())
+    except: eprint(f"Could not open `{path}', skipping."); continue
 
     jobject = None
     try: jobject = json.loads(contents)
-    except: print(f"Error parsing `{path}', skipping.", file=sys.stderr); continue
+    except: eprint(f"Error parsing `{path}', skipping."); continue
  
     do_plot(jobject) 
