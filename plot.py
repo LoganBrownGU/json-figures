@@ -16,7 +16,6 @@ def eprint(*args, **kwargs):
 
 def do_plot(jobject):
 
-    #plt.rcParams["font"] = Path("times.ttf")
     fig, ax = plt.subplots(figsize=(8,4.5))
 
     do_legend = False
@@ -41,6 +40,7 @@ def do_plot(jobject):
     if "logy" in jobject: ax.set_yscale('log', base=jobject["logy"]) 
     if "xlim" in jobject: ax.set_xlim(jobject["xlim"])
     if "ylim" in jobject: ax.set_ylim(jobject["ylim"])
+    if "legend" in jobject: plt.legend(loc=jobject["legend"])
     if "inline" in jobject and jobject["inline"]: labelLines(ax.get_lines(), False)
     elif do_legend                              : plt.legend()
 
