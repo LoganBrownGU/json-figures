@@ -3,15 +3,20 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+import os
 import json
+import matplotlib
 
+from pathlib import Path 
+from matplotlib import font_manager as fm
 from labellines import labelLine, labelLines
 
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs) 
 
 def do_plot(jobject):
-    
+
+    #plt.rcParams["font"] = Path("times.ttf")
     fig, ax = plt.subplots(figsize=(5,3))
 
     do_legend = False
@@ -44,6 +49,19 @@ def do_plot(jobject):
     eprint("Saving...")
     if "path" in jobject: plt.savefig(jobject["path"], bbox_inches="tight", pad_inches=0)
     else                : plt.show()
+
+
+
+
+font_path = "/usr/share/fonts/truetype/times.ttf"
+fm.fontManager.addfont(font_path)
+prop = fm.FontProperties(fname=font_path)
+matplotlib.rc('font', family='sans-serif') 
+matplotlib.rcParams.update({
+    'font.size': 16,
+    'font.sans-serif': prop.get_name(),
+})
+
 
 for path in sys.argv[1:]: 
     contents = ""
