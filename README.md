@@ -6,30 +6,39 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 
 ## Mandatory fields (top level) 
 
-- `data`: data to be plotted (object, see below)
-- `xl`: x-axis label (`string`) 
-- `yl`: y-axis label (`string`)
+| field | description | type | notes | 
+| ----- | ----------- | ---- | ----- |
+| `data` | data to be plotted | `object` | see below | 
+| `xl` | x-axis label | `string` | | 
+| `yl` | y-axis label | `string` | | 
 
 ## Optional fields (top level) 
 
-- `logx`: base for x-axis log scale (`float`, will only use log scale if set)
-- `logy`: base for y-axis log scale (`float`, will only use log scale if set)
-- `path`: path to save figure (`string`, will just show figure normally if not set) 
-- `title`: title of the plot (`str`)
-- `xlim`: range over which x-axis should be displayed (`[float]`, length 2)
-- `ylim`: range over which y-axis should be displayed (`[float]`, length 2)
+| field | description | type | notes | 
+| ----- | ----------- | ---- | ----- |
+| `logx` | base for x-axis log scale | `float` | will only use x log scale if set |
+| `logy` | base for y-axis log scale | `float` | will only use y log scale if set | 
+| `path` | path to save figure | `string` | will display plot in window if not set | 
+| `title` | title of the plot | `string` | | 
+| `xlim` | range over which x-axis should be displayed | `[float; 2]` | |
+| `ylim` | range over which y-axis should be displayed | `[float; 2]` | | 
+| `legend` | position of legend | `string` | any recognised by matplotlib, a legend will always be included if any line has its `label` field set |
 
 ## Mandatory fields (data) 
 
-- `x`: x-axis data (`[float]`)
-- `y`: y-axis data (`[float]`)
+| field | description | type | notes | 
+| ----- | ----------- | ---- | ----- |
+| `x` | x-axis data | `[float]` | |
+| `y` | y-axis data | `[float]` | must be the same length as `x` |
 
 ## Optional fields (data) 
 
-- `colour`: colour of line (`string`, any recognised by matplotlib) 
-- `label`: label for legend (`string`) 
-- `linestyle`: matplotlib line style (`string`)
-- `inline`: whether labels should be attached to lines (`bool`)
+| field | description | type | notes | 
+| ----- | ----------- | ---- | ----- |
+| `colour` | colour of line | `string` | any recognised by matplotlib | 
+| `label` | label for legend | `string` | | 
+| `linestyle` | style of line | `string` | any recognised by matplotlib |   
+| `inline` | whether labels should be attached to lines | `bool` | |
 
 ## Example JSON file 
 ```

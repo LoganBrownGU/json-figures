@@ -17,7 +17,7 @@ def eprint(*args, **kwargs):
 def do_plot(jobject):
 
     #plt.rcParams["font"] = Path("times.ttf")
-    fig, ax = plt.subplots(figsize=(5,3))
+    fig, ax = plt.subplots(figsize=(8,4.5))
 
     do_legend = False
     for d in jobject["data"]: 
