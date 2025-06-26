@@ -15,31 +15,41 @@ def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs) 
 
 
-def compress(data, level):
-    new_data = np.zeros(int(np.ceil(len(data) / level)))
-
+def compress(data, compression):
+    comp_level = int(compression["level"])
+    comp_type  = compression["type"]
+    new_data = np.zeros(int(np.ceil(len(data) / comp_level)))
+    
     for i, _ in enumerate(new_data):
-        end = min(len(data), i*level + level)
-        chunk = data[i*level:end]
-        new_data[i] = np.mean(chunk)
+        if comp_type == "discard": 
+            new_data[i] = data[i * comp_level]
+        elif comp_type == "mean":
+            end = min(len(data), i*comp_level + comp_level)
+            chunk = data[i*comp_level:end]
+            new_data[i] = np.mean(chunk)
+        else: 
+            raise ValueError(f"Unrecognised compression type: {comp_type}")
 
     return new_data
 
 
-def plot_line(d, ax):
+def plot_line(d, ax, parent):
     do_legend = False 
 
     linestyle = d["linestyle"] if "linestyle" in d else "-"
     colour = d["colour"] if "colour" in d else None
     label  = d["label"]  if "label"  in d else None
+   
+    compression = None
+    if "compression" in parent: compression = parent["compression"]
+    if "compression" in d:      compression = d["compression"]      # Overloads parent compression settings
 
     if label: do_legend = True
 
     x_data = d["x"]; y_data = d["y"]
-
-    if "compression" in d: 
-        compression_level = int(d["compression"])
-        x_data = compress(x_data, compression_level); y_data = compress(y_data, compression_level)
+    
+    if compression:  
+        x_data = compress(x_data, compression); y_data = compress(y_data, compression)
 
     eprint(f"Plotting {label}...")
     ax.plot(x_data, y_data, linestyle, color=colour, label=label, markersize=2)
@@ -53,7 +63,7 @@ def do_plot(jobject):
 
     do_legend = False
     for d in jobject["data"]: 
-        if plot_line(d, ax): do_legend = True
+        if plot_line(d, ax, jobject): do_legend = True
 
     eprint("Setting options...")
     # Mandatory

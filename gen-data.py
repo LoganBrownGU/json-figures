@@ -22,7 +22,10 @@ for x in xs:
     plt.plot(t, x)
 plt.show()
 
-compression = 10000
+compression = {
+    "level": 10000,
+    "type": "mean",
+}
 
 jdata = []
 jdata.append({
@@ -38,7 +41,6 @@ jdata.append({
     "x": list(t),
     "y": list(xs[1]),
     "colour": "tab:blue",
-    "compression": compression,
     "label": "exp",
 })
 
@@ -48,7 +50,7 @@ jdata.append({
     "linestyle": "x",
     "colour": "tab:green",
     "label": "sin",
-    "compression": compression,
+    "compression": None,
 })
 
 jstring = json.dumps({ 

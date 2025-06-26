@@ -23,6 +23,7 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 | `xlim` | range over which x-axis should be displayed | `[float; 2]` | |
 | `ylim` | range over which y-axis should be displayed | `[float; 2]` | | 
 | `legend` | position of legend | `string` | any recognised by matplotlib, a legend will always be included if any line has its `label` field set |
+| `compression` | define compression settings | `object` | see below | 
 
 ## Mandatory fields (data) 
 
@@ -39,7 +40,18 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 | `label` | label for legend | `string` | | 
 | `linestyle` | style of line | `string` | any recognised by matplotlib |   
 | `inline` | whether labels should be attached to lines | `bool` | |
-| `compression` | chunk groups of n datapoints together and take the mean to reduce output file size | `int` | |
+| `compression` | define compression settings | `object` | see below | 
+
+## Compression
+
+Defines settings for simple compression. Useful if there are so many datapoints that the output file takes a long time to load or create. Can be set at both top level and per-dataset. If set in top level, then the settings will be applied to every dataset *except* those that have their own compression settings. If defining compression settings, all fields must be defined. Dataset-specific `compression` can be set to `null` to disable compression. 
+
+| field | description | type | notes | 
+| ----- | ----------- | ---- | ----- |
+| `level` | chunk groups of n datapoints together | `int` | |
+| `type` | how to carry out compression | `string` | "discard" \| "mean" | 
+
+
 
 ## Example JSON file 
 ```
