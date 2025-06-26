@@ -15,12 +15,14 @@ def g(x):
 def h(x):
     return np.sin(x)
 
-t = np.linspace(0, 5, 10)
+t = np.linspace(0, 5, 100023)
 xs = [f(t), g(t), h(t)]
       
 for x in xs:
     plt.plot(t, x)
 plt.show()
+
+compression = 10000
 
 jdata = []
 jdata.append({
@@ -28,6 +30,7 @@ jdata.append({
     "y": list(xs[0]),
     "linestyle": "--",
     "colour": "tab:red",
+    "compression": compression,
     "label": "exp"
 })
 
@@ -35,6 +38,7 @@ jdata.append({
     "x": list(t),
     "y": list(xs[1]),
     "colour": "tab:blue",
+    "compression": compression,
     "label": "exp",
 })
 
@@ -43,7 +47,8 @@ jdata.append({
     "y": list(xs[2]),
     "linestyle": "x",
     "colour": "tab:green",
-    "label": "sin"
+    "label": "sin",
+    "compression": compression,
 })
 
 jstring = json.dumps({ 

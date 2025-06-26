@@ -14,20 +14,46 @@ from labellines import labelLine, labelLines
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs) 
 
+
+def compress(data, level):
+    new_data = np.zeros(int(np.ceil(len(data) / level)))
+
+    for i, _ in enumerate(new_data):
+        end = min(len(data), i*level + level)
+        chunk = data[i*level:end]
+        new_data[i] = np.mean(chunk)
+
+    return new_data
+
+
+def plot_line(d, ax):
+    do_legend = False 
+
+    linestyle = d["linestyle"] if "linestyle" in d else "-"
+    colour = d["colour"] if "colour" in d else None
+    label  = d["label"]  if "label"  in d else None
+
+    if label: do_legend = True
+
+    x_data = d["x"]; y_data = d["y"]
+
+    if "compression" in d: 
+        compression_level = int(d["compression"])
+        x_data = compress(x_data, compression_level); y_data = compress(y_data, compression_level)
+
+    eprint(f"Plotting {label}...")
+    ax.plot(x_data, y_data, linestyle, color=colour, label=label, markersize=2)
+
+    return do_legend
+
+
 def do_plot(jobject):
 
     fig, ax = plt.subplots(figsize=(8,4.5))
 
     do_legend = False
     for d in jobject["data"]: 
-        linestyle = d["linestyle"] if "linestyle" in d else "-"
-        colour = d["colour"] if "colour" in d else None
-        label  = d["label"]  if "label"  in d else None
-        
-        if label: do_legend = True
-
-        eprint(f"Plotting {label}...")
-        ax.plot(d["x"], d["y"], linestyle, color=colour, label=label, markersize=2)
+        if plot_line(d, ax): do_legend = True
 
     eprint("Setting options...")
     # Mandatory

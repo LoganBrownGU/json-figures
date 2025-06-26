@@ -39,6 +39,7 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 | `label` | label for legend | `string` | | 
 | `linestyle` | style of line | `string` | any recognised by matplotlib |   
 | `inline` | whether labels should be attached to lines | `bool` | |
+| `compression` | chunk groups of n datapoints together and take the mean to reduce output file size | `int` | |
 
 ## Example JSON file 
 ```
