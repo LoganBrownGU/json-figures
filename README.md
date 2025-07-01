@@ -18,6 +18,8 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 | ----- | ----------- | ---- | ----- |
 | `logx` | base for x-axis log scale | `float` | will only use x log scale if set |
 | `logy` | base for y-axis log scale | `float` | will only use y log scale if set | 
+| `tickx` | x axis ticks | `object` | see below | 
+| `ticky` | y axis ticks | `object` | see below | 
 | `path` | path to save figure | `string` | will display plot in window if not set | 
 | `title` | title of the plot | `string` | | 
 | `xlim` | range over which x-axis should be displayed | `[float; 2]` | |
@@ -43,6 +45,14 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 | `linestyle` | style of line | `string` | any recognised by matplotlib |   
 | `inline` | whether labels should be attached to lines | `bool` | |
 | `compression` | define compression settings | `object` | see below | 
+
+## Axis ticks
+Defines the major and minor axis ticks. Defined per axis.  
+
+| field | description | type | notes | 
+| ----- | ----------- | ---- | ----- |
+| `major` | major ticks | `[float]` | |
+| `minor` | minor ticks | `[float]` | |
 
 ## Compression
 

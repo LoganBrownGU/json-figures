@@ -11,8 +11,17 @@ from pathlib import Path
 from matplotlib import font_manager as fm
 from labellines import labelLine, labelLines
 
+# Utility functions 
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs) 
+
+
+def do_if_present(dic, key, f):
+    if key in dic: 
+        f(dic[key])
+
+
+
 
 
 def compress(data, compression):
@@ -57,6 +66,11 @@ def plot_line(d, ax, parent):
     return do_legend
 
 
+def set_ticks(ax, ticks):
+    ax.set_ticks(ticks["minor"], minor=True)
+    ax.set_ticks(ticks["major"], minor=False)
+
+
 def do_plot(jobject):
 
     dimensions = [8, 4.5]
@@ -77,7 +91,9 @@ def do_plot(jobject):
     # Optional
     if "title" in jobject: plt.title(jobject["title"])
     if "logx" in jobject: ax.set_xscale('log', base=jobject["logx"]) 
-    if "logy" in jobject: ax.set_yscale('log', base=jobject["logy"]) 
+    if "logy" in jobject: ax.set_yscale('log', base=jobject["logy"])
+    if "tickx" in jobject: set_ticks(ax.yaxis, jobject["tickx"])  
+    if "ticky" in jobject: set_ticks(ax.yaxis, jobject["ticky"])  
     if "xlim" in jobject: ax.set_xlim(jobject["xlim"])
     if "ylim" in jobject: ax.set_ylim(jobject["ylim"])
     if "legend" in jobject: plt.legend(loc=jobject["legend"])
