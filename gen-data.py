@@ -60,6 +60,7 @@ jstring = json.dumps({
     "path": "exp-decay.pdf",
     "inline": True,
     "legend": "upper left",
+    "aspect": 3,
     "ylim": [0, 1.5],
 }, indent=4)
 

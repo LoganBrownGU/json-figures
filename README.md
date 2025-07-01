@@ -24,6 +24,8 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 | `ylim` | range over which y-axis should be displayed | `[float; 2]` | | 
 | `legend` | position of legend | `string` | any recognised by matplotlib, a legend will always be included if any line has its `label` field set |
 | `compression` | define compression settings | `object` | see below | 
+| `size` | width and height in inches | `[float; 2]` | | 
+| `aspect` | aspect ratio | `float` | the width as a fraction of the default height (e.g. `"aspect": 1` would give a 4.5x4.5 plot, `"aspect": 1.5` would give a 6.75x4.5 plot) |
 
 ## Mandatory fields (data) 
 

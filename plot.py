@@ -59,7 +59,11 @@ def plot_line(d, ax, parent):
 
 def do_plot(jobject):
 
-    fig, ax = plt.subplots(figsize=(8,4.5))
+    dimensions = [8, 4.5]
+    if "size" in jobject: dimensions = jobject["size"]
+    if "aspect" in jobject: dimensions[0] = dimensions[1] * jobject["aspect"]
+
+    fig, ax = plt.subplots(figsize=dimensions)
 
     do_legend = False
     for d in jobject["data"]: 
