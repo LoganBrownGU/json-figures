@@ -18,8 +18,9 @@ def eprint(*args, **kwargs):
 
 def do_if_present(dic, key, f):
     if key in dic: 
-        f(dic[key])
+        return f(dic[key])
 
+    return None
 
 
 
@@ -89,14 +90,14 @@ def do_plot(jobject):
     plt.ylabel(jobject["yl"])
 
     # Optional
-    if "title" in jobject: plt.title(jobject["title"])
-    if "logx" in jobject: ax.set_xscale('log', base=jobject["logx"]) 
-    if "logy" in jobject: ax.set_yscale('log', base=jobject["logy"])
-    if "tickx" in jobject: set_ticks(ax.yaxis, jobject["tickx"])  
-    if "ticky" in jobject: set_ticks(ax.yaxis, jobject["ticky"])  
-    if "xlim" in jobject: ax.set_xlim(jobject["xlim"])
-    if "ylim" in jobject: ax.set_ylim(jobject["ylim"])
-    if "legend" in jobject: plt.legend(loc=jobject["legend"])
+    do_if_present(jobject, "title", lambda t: plt.title(t))
+    do_if_present(jobject, "logx",  lambda l: ax.set_xscale("log", base=l))
+    do_if_present(jobject, "logy",  lambda l: ax.set_yscale("log", base=l))
+    do_if_present(jobject, "tickx", lambda t: set_ticks(ax.xaxis, t))
+    do_if_present(jobject, "ticky", lambda t: set_ticks(ax.yaxis, t))
+    do_if_present(jobject, "xlim",  lambda l: ax.set_xlim(l)) 
+    do_if_present(jobject, "ylim",  lambda l: ax.set_ylim(l)) 
+    do_if_present(jobject, "legend", lambda l: plt.legend(loc=l))
     if "inline" in jobject and jobject["inline"]: labelLines(ax.get_lines(), False)
     elif do_legend                              : plt.legend()
 

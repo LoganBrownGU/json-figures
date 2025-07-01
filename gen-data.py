@@ -50,7 +50,7 @@ jdata.append({
     "linestyle": "x",
     "colour": "tab:green",
     "label": "sin",
-    "compression": None,
+    "compression": compression,
 })
 
 jstring = json.dumps({ 
