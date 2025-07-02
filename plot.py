@@ -62,7 +62,7 @@ def plot_line(d, ax, parent):
         x_data = compress(x_data, compression); y_data = compress(y_data, compression)
 
     eprint(f"Plotting {label}...")
-    ax.plot(x_data, y_data, linestyle, color=colour, label=label, markersize=2)
+    ax.plot(x_data, y_data, linestyle, color=colour, label=label, markersize=5)
 
     return do_legend
 
