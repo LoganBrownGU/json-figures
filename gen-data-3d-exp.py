@@ -4,9 +4,9 @@ import numpy as np
 import json 
 
 def f(x, y): 
-    return np.sin(x) + np.sin(y)
+    return np.exp(np.sin(x) + np.sin(y))
 def g(x, y): 
-    return np.sinc(x) + np.sinc(y)
+    return np.exp(np.sinc(x) + np.sinc(y))
 
 
 
@@ -43,6 +43,7 @@ with open ("data.json", "w") as f:
         "xl": "x",
         "yl": "y",
         "zl": "$f(x, y)$",
-        "angle": "225",
+        "logz": 2, 
+        "angle": 225,
         "path": "3d.pdf" 
     }, indent=4))

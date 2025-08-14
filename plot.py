@@ -9,6 +9,7 @@ import matplotlib
 
 from pathlib import Path 
 from matplotlib import font_manager as fm
+import matplotlib.ticker as ticker
 from labellines import labelLine, labelLines
 
 # Utility functions 
@@ -77,22 +78,48 @@ def do_plot_3d(jobject):
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"}, figsize=dimensions)
     ax.set_proj_type("ortho")
     
+    def logify_axis(axis, data, base):
+        axis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: str(base**x)))
+        axis.set_major_locator(ticker.MaxNLocator(integer=True))
+
+        return np.emath.logn(base, data)
+    
+
+    # Mandatory
     colours = list(matplotlib.colors.TABLEAU_COLORS.values())
     for i, d in enumerate(jobject["data"]):
-        ax.plot_wireframe(np.array(d["x"]), np.array(d["y"]), np.array(d["z"]), color=colours[i])
+        d_x = do_if_present(jobject, "logx", lambda b: logify_axis(ax.xaxis, d["x"], b))
+        d_y = do_if_present(jobject, "logy", lambda b: logify_axis(ax.yaxis, d["y"], b))
+        d_z = do_if_present(jobject, "logz", lambda b: logify_axis(ax.zaxis, d["z"], b))
+
+        ax.plot_wireframe(
+            d_x if type(d_x) is np.ndarray else np.array(d["x"]), 
+            d_y if type(d_y) is np.ndarray else np.array(d["y"]), 
+            d_z if type(d_z) is np.ndarray else np.array(d["z"]), 
+            color=colours[i]
+        )
 
     ax.set_xlabel("\n" + jobject["xl"])
     ax.set_ylabel("\n" + jobject["yl"])
     ax.set_zlabel(jobject["zl"])
 
-    view_angle = float(jobject["angle"]) if "angle" in jobject else 45.0
+    # Optional
+    do_if_present(jobject, "xlim", lambda l: ax.set_xlim(l))
+    do_if_present(jobject, "ylim", lambda l: ax.set_ylim(l))
+    do_if_present(jobject, "zlim", lambda l: ax.set_zlim(l))
 
-    do_if_present(jobject, "angle", lambda a: ax.view_init(elev=30, azim=view_angle, roll=0))
+    
+    view_angle = float(jobject["angle"]) if "angle" in jobject else 45.0
+    ax.view_init(elev=30, azim=view_angle, roll=0)
 
     plt.tight_layout()
 
-    if np.tan(np.deg2rad(view_angle)) < 0: plt.subplots_adjust(top=1, bottom=0, right=0.9, left=0); ax.set_zlabel("\n\n" + ax.get_zlabel()) # label on right 
-    else                            : plt.subplots_adjust(top=1, bottom=0, right=1, left=0.1); ax.set_zlabel(ax.get_zlabel() + "\n\n") # label on left
+    if np.tan(np.deg2rad(view_angle)) < 0: 
+        plt.subplots_adjust(top=1, bottom=0, right=0.9, left=0)
+        ax.set_zlabel("\n\n" + ax.get_zlabel()) # label on right 
+    else: 
+        plt.subplots_adjust(top=1, bottom=0, right=1, left=0.1)
+        ax.set_zlabel(ax.get_zlabel() + "\n\n") # label on left
 
 
     if "path" in jobject: plt.savefig(jobject["path"])
