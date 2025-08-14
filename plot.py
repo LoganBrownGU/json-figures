@@ -72,7 +72,34 @@ def set_ticks(ax, ticks):
     ax.set_ticks(ticks["major"], minor=False)
 
 
-def do_plot(jobject):
+def do_plot_3d(jobject):
+    dimensions = [8, 7]
+    fig, ax = plt.subplots(subplot_kw={"projection": "3d"}, figsize=dimensions)
+    ax.set_proj_type("ortho")
+    
+    colours = list(matplotlib.colors.TABLEAU_COLORS.values())
+    for i, d in enumerate(jobject["data"]):
+        ax.plot_wireframe(np.array(d["x"]), np.array(d["y"]), np.array(d["z"]), color=colours[i])
+
+    ax.set_xlabel("\n" + jobject["xl"])
+    ax.set_ylabel("\n" + jobject["yl"])
+    ax.set_zlabel(jobject["zl"])
+
+    view_angle = float(jobject["angle"]) if "angle" in jobject else 45.0
+
+    do_if_present(jobject, "angle", lambda a: ax.view_init(elev=30, azim=view_angle, roll=0))
+
+    plt.tight_layout()
+
+    if np.tan(np.deg2rad(view_angle)) < 0: plt.subplots_adjust(top=1, bottom=0, right=0.9, left=0); ax.set_zlabel("\n\n" + ax.get_zlabel()) # label on right 
+    else                            : plt.subplots_adjust(top=1, bottom=0, right=1, left=0.1); ax.set_zlabel(ax.get_zlabel() + "\n\n") # label on left
+
+
+    if "path" in jobject: plt.savefig(jobject["path"])
+    else                : plt.show()
+
+
+def do_plot_2d(jobject):
 
     dimensions = [8, 4.5]
     if "size" in jobject: dimensions = jobject["size"]
@@ -133,4 +160,5 @@ for path in sys.argv[1:]:
     try: jobject = json.loads(contents)
     except: eprint(f"Error parsing `{path}', skipping."); continue
  
-    do_plot(jobject) 
+    if "3d" in jobject: do_plot_3d(jobject)
+    else              : do_plot_2d(jobject) 

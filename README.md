@@ -10,7 +10,13 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 | ----- | ----------- | ---- | ----- |
 | `data` | data to be plotted | `object` | see below | 
 | `xl` | x-axis label | `string` | | 
-| `yl` | y-axis label | `string` | | 
+| `yl` | y-axis label | `string` | |
+
+### 3D-specific
+
+| field | description | type | notes | 
+| ----- | ----------- | ---- | ----- |
+| `zl` | z-axis label | `string` | | 
 
 ## Optional fields (top level) 
 
@@ -29,12 +35,30 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 | `size` | width and height in inches | `[float; 2]` | | 
 | `aspect` | aspect ratio | `float` | the width as a fraction of the default height (e.g. `"aspect": 1` would give a 4.5x4.5 plot, `"aspect": 1.5` would give a 6.75x4.5 plot) |
 
+### 3D-specific
+
+| field | description | type | notes | 
+| ----- | ----------- | ---- | ----- |
+| `zl` | z-axis label | `string` | | 
+| `3d` | is this a 3D plot? | `bool` | |
+| `logz` | base for z-axis log scale | `float` | | 
+| `tickz` | z axis ticks | `object` | see below | 
+| `angle` | view angle for 3D plot | `float` | |
+
 ## Mandatory fields (data) 
 
 | field | description | type | notes | 
 | ----- | ----------- | ---- | ----- |
 | `x` | x-axis data | `[float]` | |
 | `y` | y-axis data | `[float]` | must be the same length as `x` |
+
+### 3D-specific
+
+| field | description | type | notes | 
+| ----- | ----------- | ---- | ----- |
+| `x` | x-axis data | `[float]` | |
+| `y` | y-axis data | `[float]` | must be same length as `x` |
+| `z` | z-axis data | `[float]` | must be same length as `x` |
 
 ## Optional fields (data) 
 
