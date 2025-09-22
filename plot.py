@@ -94,6 +94,8 @@ def do_plot_3d(jobject):
         d_x = do_if_present(jobject, "logx", lambda b: logify_axis(ax.xaxis, d["x"], b))
         d_y = do_if_present(jobject, "logy", lambda b: logify_axis(ax.yaxis, d["y"], b))
         d_z = do_if_present(jobject, "logz", lambda b: logify_axis(ax.zaxis, d["z"], b))
+        
+        linestyle = d["linestyle"] if "linestyle" in d else "-"
 
         if "label" in d: 
             ax.plot_wireframe(
@@ -101,6 +103,7 @@ def do_plot_3d(jobject):
                 d_y if type(d_y) is np.ndarray else np.array(d["y"]), 
                 d_z if type(d_z) is np.ndarray else np.array(d["z"]), 
                 color=colours[i],
+                linestyle=linestyle,
                 label=d["label"]
             )
         else:
@@ -108,7 +111,8 @@ def do_plot_3d(jobject):
                 d_x if type(d_x) is np.ndarray else np.array(d["x"]), 
                 d_y if type(d_y) is np.ndarray else np.array(d["y"]), 
                 d_z if type(d_z) is np.ndarray else np.array(d["z"]), 
-                color=colours[i]
+                color=colours[i],
+                linestyle=linestyle,
             )
 
     ax.set_xlabel("\n" + jobject["xl"])
