@@ -77,6 +77,7 @@ def do_plot_3d(jobject):
     dimensions = [8, 7]
     fig, ax = plt.subplots(subplot_kw={"projection": "3d"}, figsize=dimensions)
     ax.set_proj_type("ortho")
+    do_legend = False
     
     def logify_axis(axis, data, base):
         axis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: str(base**x)))
@@ -88,16 +89,27 @@ def do_plot_3d(jobject):
     # Mandatory
     colours = list(matplotlib.colors.TABLEAU_COLORS.values())
     for i, d in enumerate(jobject["data"]):
+        if "label" in d: do_legend = True
+
         d_x = do_if_present(jobject, "logx", lambda b: logify_axis(ax.xaxis, d["x"], b))
         d_y = do_if_present(jobject, "logy", lambda b: logify_axis(ax.yaxis, d["y"], b))
         d_z = do_if_present(jobject, "logz", lambda b: logify_axis(ax.zaxis, d["z"], b))
 
-        ax.plot_wireframe(
-            d_x if type(d_x) is np.ndarray else np.array(d["x"]), 
-            d_y if type(d_y) is np.ndarray else np.array(d["y"]), 
-            d_z if type(d_z) is np.ndarray else np.array(d["z"]), 
-            color=colours[i]
-        )
+        if "label" in d: 
+            ax.plot_wireframe(
+                d_x if type(d_x) is np.ndarray else np.array(d["x"]), 
+                d_y if type(d_y) is np.ndarray else np.array(d["y"]), 
+                d_z if type(d_z) is np.ndarray else np.array(d["z"]), 
+                color=colours[i],
+                label=d["label"]
+            )
+        else:
+            ax.plot_wireframe(
+                d_x if type(d_x) is np.ndarray else np.array(d["x"]), 
+                d_y if type(d_y) is np.ndarray else np.array(d["y"]), 
+                d_z if type(d_z) is np.ndarray else np.array(d["z"]), 
+                color=colours[i]
+            )
 
     ax.set_xlabel("\n" + jobject["xl"])
     ax.set_ylabel("\n" + jobject["yl"])
@@ -121,6 +133,8 @@ def do_plot_3d(jobject):
         plt.subplots_adjust(top=1, bottom=0, right=1, left=0.1)
         ax.set_zlabel(ax.get_zlabel() + "\n\n") # label on left
 
+    if do_legend: ax.legend()
+    do_if_present(jobject, "legend", lambda s: ax.legend(loc=s))
 
     if "path" in jobject: plt.savefig(jobject["path"])
     else                : plt.show()
