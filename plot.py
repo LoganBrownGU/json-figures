@@ -140,7 +140,7 @@ def do_plot_3d(jobject):
     if do_legend: ax.legend()
     do_if_present(jobject, "legend", lambda s: ax.legend(loc=s))
 
-    if "path" in jobject: plt.savefig(jobject["path"])
+    if "path" in jobject: plt.savefig(jobject["path"], transparent=True)
     else                : plt.show()
 
 
@@ -176,7 +176,7 @@ def do_plot_2d(jobject):
     plt.grid(which="both")
 
     eprint("Saving...")
-    if "path" in jobject: plt.savefig(jobject["path"], bbox_inches="tight", pad_inches=0)
+    if "path" in jobject: plt.savefig(jobject["path"], bbox_inches="tight", pad_inches=0, transparent=True)
     else                : plt.show()
 
 
