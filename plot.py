@@ -164,7 +164,9 @@ def do_plot_2d(jobject):
     # Optional
     do_if_present(jobject, "title", lambda t: plt.title(t))
     do_if_present(jobject, "logx",  lambda l: ax.set_xscale("log", base=l))
+    do_if_present(jobject, "slogx", lambda l: ax.set_xscale("symlog", base=l))
     do_if_present(jobject, "logy",  lambda l: ax.set_yscale("log", base=l))
+    do_if_present(jobject, "slogy", lambda l: ax.set_xscale("symlog", base=l))
     do_if_present(jobject, "tickx", lambda t: set_ticks(ax.xaxis, t))
     do_if_present(jobject, "ticky", lambda t: set_ticks(ax.yaxis, t))
     do_if_present(jobject, "xlim",  lambda l: ax.set_xlim(l)) 

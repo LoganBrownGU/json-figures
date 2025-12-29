@@ -23,7 +23,9 @@ Any number of "lines" may be included, of differing lengths and x-axis data.
 | field | description | type | notes | 
 | ----- | ----------- | ---- | ----- |
 | `logx` | base for x-axis log scale | `float` | will only use x log scale if set |
+| `slogx` | base for _symmetrical_ x-axis log scale | `float` | only works for 2D plots |
 | `logy` | base for y-axis log scale | `float` | will only use y log scale if set | 
+| `slogy` | base for _symmetrical_ y-axis log scale | `float` | only works for 2D plots | 
 | `tickx` | x axis ticks | `object` | see below | 
 | `ticky` | y axis ticks | `object` | see below | 
 | `path` | path to save figure | `string` | will display plot in window if not set | 
