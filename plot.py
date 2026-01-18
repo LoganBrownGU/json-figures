@@ -205,7 +205,7 @@ for path in sys.argv[1:]:
 
     jobject = None
     try: jobject = json.loads(contents)
-    except: eprint(f"Error parsing `{path}', skipping."); continue
+    except  Exception as e: eprint(f"Error parsing `{path}', skipping.\n\t{e}"); continue
  
     if "3d" in jobject: do_plot_3d(jobject)
     else              : do_plot_2d(jobject) 
