@@ -80,7 +80,11 @@ def do_plot_3d(jobject):
     do_legend = False
     
     def logify_axis(axis, data, base):
-        axis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: str(base**x)))
+        def format(val):
+            if val.is_integer(): return str(int(val))
+            else: return str(val)
+
+        axis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: format(float(base)**float(x))))
         axis.set_major_locator(ticker.MaxNLocator(integer=True))
 
         return np.emath.logn(base, data)
@@ -118,6 +122,12 @@ def do_plot_3d(jobject):
     ax.set_xlabel("\n" + jobject["xl"])
     ax.set_ylabel("\n" + jobject["yl"])
     ax.set_zlabel(jobject["zl"])
+
+    do_if_present(jobject, "tickx", lambda t: set_ticks(ax.xaxis, t))
+    do_if_present(jobject, "ticky", lambda t: set_ticks(ax.yaxis, t))
+    do_if_present(jobject, "tickz", lambda t: set_ticks(ax.zaxis, t))
+
+    plt.grid("both")
 
     # Optional
     do_if_present(jobject, "xlim", lambda l: ax.set_xlim(l))
