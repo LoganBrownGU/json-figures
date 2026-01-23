@@ -136,7 +136,8 @@ def do_plot_3d(jobject):
 
     
     view_angle = float(jobject["angle"]) if "angle" in jobject else 45.0
-    ax.view_init(elev=30, azim=view_angle, roll=0)
+    view_elev  = float(jobject["elev"])  if "elev"  in jobject else 30.0
+    ax.view_init(elev=view_elev, azim=view_angle, roll=0)
 
     plt.tight_layout()
 
