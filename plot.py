@@ -134,6 +134,10 @@ def do_plot_3d(jobject):
     do_if_present(jobject, "ylim", lambda l: ax.set_ylim(l))
     do_if_present(jobject, "zlim", lambda l: ax.set_zlim(l))
 
+    do_if_present(jobject, "xlfmt", lambda l: ax.ticklabel_format(axis="x", style=l, scilimits=(0, 0)))
+    do_if_present(jobject, "ylfmt", lambda l: ax.ticklabel_format(axis="y", style=l, scilimits=(0, 0)))
+    do_if_present(jobject, "zlfmt", lambda l: ax.ticklabel_format(axis="z", style=l, scilimits=(0, 0)))
+
     
     view_angle = float(jobject["angle"]) if "angle" in jobject else 45.0
     view_elev  = float(jobject["elev"])  if "elev"  in jobject else 30.0
